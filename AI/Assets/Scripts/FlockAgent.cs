@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class flockAgent : MonoBehaviour
+public class FlockAgent : MonoBehaviour
 {
     FlockGlobals g;
     Rigidbody rb;
