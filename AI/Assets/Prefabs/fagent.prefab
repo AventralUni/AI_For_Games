@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8871645526922063698}
   - component: {fileID: 1262352314032288232}
   m_Layer: 6
-  m_Name: FLockAI
+  m_Name: fagent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
