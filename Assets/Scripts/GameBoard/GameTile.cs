@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class GameTile : MonoBehaviour {
-
+public class GameTile : MonoBehaviour 
+{
 	[SerializeField]
 	Transform arrow = default;
 
@@ -11,11 +11,14 @@ public class GameTile : MonoBehaviour {
 
 	GameTileContent content;
 
-	public GameTileContent Content {
+	public GameTileContent Content 
+	{
 		get => content;
-		set {
+		set 
+		{
 			Debug.Assert(value != null, "Null assigned to content!");
-			if (content != null) {
+			if (content != null) 
+			{
 				content.Recycle();
 			}
 			content = value;
@@ -33,13 +36,15 @@ public class GameTile : MonoBehaviour {
 
 	public GameTile NextTileOnPath => nextOnPath;
 
-	public void BecomeDestination () {
+	public void BecomeDestination () 
+	{
 		distance = 0;
 		nextOnPath = null;
 		ExitPoint = transform.localPosition;
 	}
 
-	public void ClearPath () {
+	public void ClearPath () 
+	{
 		distance = int.MaxValue;
 		nextOnPath = null;
 	}
@@ -52,9 +57,11 @@ public class GameTile : MonoBehaviour {
 
 	public GameTile GrowPathWest () => GrowPathTo(west, Direction.East);
 
-	GameTile GrowPathTo (GameTile neighbor, Direction direction) {
+	GameTile GrowPathTo (GameTile neighbor, Direction direction) 
+	{
 		Debug.Assert(HasPath, "No path!");
-		if (neighbor == null || neighbor.HasPath) {
+		if (neighbor == null || neighbor.HasPath) 
+		{
 			return null;
 		}
 		neighbor.distance = distance + 1;
@@ -66,12 +73,15 @@ public class GameTile : MonoBehaviour {
 			neighbor.Content.BlocksPath ? null : neighbor;
 	}
 
-	public void HidePath () {
+	public void HidePath () 
+	{
 		arrow.gameObject.SetActive(false);
 	}
 
-	public void ShowPath () {
-		if (distance == 0) {
+	public void ShowPath () 
+	{
+		if (distance == 0) 
+		{
 			arrow.gameObject.SetActive(false);
 			return;
 		}
@@ -89,18 +99,16 @@ public class GameTile : MonoBehaviour {
 		southRotation = Quaternion.Euler(90f, 180f, 0f),
 		westRotation = Quaternion.Euler(90f, 270f, 0f);
 
-	public static void MakeEastWestNeighbors (GameTile east, GameTile west) {
-		Debug.Assert(
-			west.east == null && east.west == null, "Redefined neighbors!"
-		);
+	public static void MakeEastWestNeighbors (GameTile east, GameTile west) 
+	{
+		Debug.Assert(west.east == null && east.west == null, "Redefined neighbors!");
 		west.east = east;
 		east.west = west;
 	}
 
-	public static void MakeNorthSouthNeighbors (GameTile north, GameTile south) {
-		Debug.Assert(
-			south.north == null && north.south == null, "Redefined neighbors!"
-		);
+	public static void MakeNorthSouthNeighbors (GameTile north, GameTile south) 
+	{
+		Debug.Assert(south.north == null && north.south == null, "Redefined neighbors!");
 		south.north = north;
 		north.south = south;
 	}
