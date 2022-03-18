@@ -9,15 +9,18 @@ public class FlockAgent : MonoBehaviour
 
     List<GameObject> getNear()
     {
-        var agents = GameObject.FindGameObjectsWithTag("Agent");
         List<GameObject> others = new List<GameObject>();
 
+        var agents = GameObject.FindGameObjectsWithTag("Agent");
         for (int i = 0; i < agents.Length; i++)
         {
             var other = agents[i];
 
             if (other == gameObject) continue;
+
             if (Vector3.Distance(transform.position, other.transform.position) > g.DISTANCE) continue;
+
+
 
             others.Add(other);
         }
@@ -42,14 +45,7 @@ public class FlockAgent : MonoBehaviour
         Vector3 avg_heading = Vector3.zero;
         for (int i = 0; i < neighbours.Count; i++)
         {
-            var diff = transform.position - neighbours[i].transform.position;
-            if (Mathf.Abs(diff.magnitude) > g.DISTANCE / 2)
-            {
-                continue;
-            }
-
-            var other = neighbours[i];
-            avg_heading += transform.forward;
+            avg_heading += transform.up;
         }
         avg_heading /= neighbours.Count;
 
@@ -58,10 +54,6 @@ public class FlockAgent : MonoBehaviour
         for (int i = 0; i < neighbours.Count; i++)
         {
             var diff = transform.position - neighbours[i].transform.position;
-            if (Mathf.Abs(diff.magnitude) > g.DISTANCE / 2)
-            {
-                continue;
-            }
 
             avg_diff += diff / diff.sqrMagnitude;
         }
@@ -71,6 +63,13 @@ public class FlockAgent : MonoBehaviour
         Vector3 avg_position = Vector3.zero;
         for (int i = 0; i < neighbours.Count; i++)
         {
+            var diff = transform.position - neighbours[i].transform.position;
+
+            if (Mathf.Abs(diff.magnitude) > g.DISTANCE * 2)
+            {
+                continue;
+            }
+
             var other = neighbours[i];
             avg_position += other.transform.position;
         }
@@ -81,11 +80,13 @@ public class FlockAgent : MonoBehaviour
         var separation = avg_diff.normalized;
         var cohesion = avg_position.normalized;
 
+        print($"{gameObject.name} : algn {align} : fwd {transform.forward}");
+
         var netSteer =
-            cohesion * g.cohesiveForce +
-            align * g.alignForce +
-            separation * g.separationForce + 
-            avg_heading_to_leader * g.leaderForce;
+            //cohesion * g.cohesiveForce +
+            align * g.alignForce;
+            //separation * g.separationForce  + 
+            //avg_heading_to_leader * g.leaderForce;
 
         Move(netSteer * g.flockSpeed);
     }
@@ -96,6 +97,7 @@ public class FlockAgent : MonoBehaviour
         g = GameObject.FindGameObjectWithTag("AIControl").GetComponent<FlockGlobals>();
 
         transform.Rotate(transform.up * Random.Range(0, 360));
+        Time.timeScale = 0.1f;
     }
 
     void Update()
@@ -120,7 +122,7 @@ public class FlockAgent : MonoBehaviour
         // }
 
         //rb.velocity = velocity;
-        transform.forward = velocity;
-        transform.position += velocity * Time.deltaTime;
+        transform.up = velocity;
+        //transform.position += velocity * Time.deltaTime;
     }
 }
