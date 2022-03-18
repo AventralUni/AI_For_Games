@@ -9,13 +9,13 @@ public class FlockAgent : MonoBehaviour
 
     List<GameObject> getNear()
     {
+        var agents = GameObject.FindGameObjectsWithTag("Agent");
         List<GameObject> others = new List<GameObject>();
 
-        for (int i = 0; i < FindObjectsOfType(typeof(GameObject)).Length; i++)
+        for (int i = 0; i < agents.Length; i++)
         {
-            var other = FindObjectsOfType(typeof(GameObject))[i] as GameObject;
-
-            if (!other.CompareTag("Agent")) continue;
+            var other = agents[i];
+            
             if (other == gameObject) continue;
             if (Vector3.Distance(transform.position, other.transform.position) > g.DISTANCE) continue;
 
@@ -33,6 +33,8 @@ public class FlockAgent : MonoBehaviour
         {
             return;
         }
+
+        //heading towards pack leader stuff
 
         //align
         Vector3 avg_heading = Vector3.zero;
@@ -100,8 +102,8 @@ public class FlockAgent : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * .75f);

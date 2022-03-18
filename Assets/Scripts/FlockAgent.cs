@@ -9,13 +9,13 @@ public class FlockAgent : MonoBehaviour
 
     List<GameObject> getNear()
     {
+        var agents = GameObject.FindGameObjectsWithTag("Agent");
         List<GameObject> others = new List<GameObject>();
 
-        for (int i = 0; i < FindObjectsOfType(typeof(GameObject)).Length; i++)
+        for (int i = 0; i < agents.Length; i++)
         {
-            var other = FindObjectsOfType(typeof(GameObject))[i] as GameObject;
+            var other = agents[i];
 
-            if (!other.CompareTag("Agent")) continue;
             if (other == gameObject) continue;
             if (Vector3.Distance(transform.position, other.transform.position) > g.DISTANCE) continue;
 
@@ -29,9 +29,13 @@ public class FlockAgent : MonoBehaviour
     {
         var neighbours = getNear();
 
-        if (neighbours.Count <= 0)
+        if (neighbours.Count <= 0) return;
+
+        //heading towards pack leader stuff
+        Vector3 avg_heading_to_leader = Vector3.zero;
+        if (g.leader)
         {
-            return;
+            avg_heading_to_leader = (g.leader.transform.position - transform.position).normalized;
         }
 
         //align
@@ -80,7 +84,8 @@ public class FlockAgent : MonoBehaviour
         var netSteer =
             cohesion * g.cohesiveForce +
             align * g.alignForce +
-            separation * g.separationForce;
+            separation * g.separationForce + 
+            avg_heading_to_leader * g.leaderForce;
 
         Move(netSteer * g.flockSpeed);
     }
@@ -100,8 +105,8 @@ public class FlockAgent : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * .75f);
@@ -109,10 +114,10 @@ public class FlockAgent : MonoBehaviour
 
     void Move(Vector3 velocity)
     {
-       // if (gameObject.name == "FLockAI")
-       // {
-       //     print($"up {transform.up} forward {transform.forward} velocity {velocity}");
-       // }
+        // if (gameObject.name == "FLockAI")
+        // {
+        //     print($"up {transform.up} forward {transform.forward} velocity {velocity}");
+        // }
 
         //rb.velocity = velocity;
         transform.forward = velocity;
