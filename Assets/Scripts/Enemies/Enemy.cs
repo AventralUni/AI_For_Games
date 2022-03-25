@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour 
-{
+public class Enemy : GameBehavior {
+
 	[SerializeField]
 	Transform model = default;
 
@@ -16,11 +16,9 @@ public class Enemy : MonoBehaviour
 	float pathOffset;
 	float speed;
 
-	public EnemyFactory OriginFactory 
-	{
+	public EnemyFactory OriginFactory {
 		get => originFactory;
-		set 
-		{
+		set {
 			Debug.Assert(originFactory == null, "Redefined origin factory!");
 			originFactory = value;
 		}
@@ -30,25 +28,20 @@ public class Enemy : MonoBehaviour
 
 	float Health { get; set; }
 
-	public void ApplyDamage (float damage) 
-	{
+	public void ApplyDamage (float damage) {
 		Debug.Assert(damage >= 0f, "Negative damage applied.");
 		Health -= damage;
 	}
 
-	public bool GameUpdate () 
-	{
-		if (Health <= 0f) 
-		{
+	public override bool GameUpdate () {
+		if (Health <= 0f) {
 			OriginFactory.Reclaim(this);
 			return false;
 		}
 
 		progress += Time.deltaTime * progressFactor;
-		while (progress >= 1f) 
-		{
-			if (tileTo == null) 
-			{
+		while (progress >= 1f) {
+			if (tileTo == null) {
 				OriginFactory.Reclaim(this);
 				return false;
 			}
@@ -56,43 +49,39 @@ public class Enemy : MonoBehaviour
 			PrepareNextState();
 			progress *= progressFactor;
 		}
-		if (directionChange == DirectionChange.None) 
-		{
+		if (directionChange == DirectionChange.None) {
 			transform.localPosition =
 				Vector3.LerpUnclamped(positionFrom, positionTo, progress);
 		}
-		else 
-		{
-			float angle = Mathf.LerpUnclamped(directionAngleFrom, directionAngleTo, progress);
+		else {
+			float angle = Mathf.LerpUnclamped(
+				directionAngleFrom, directionAngleTo, progress
+			);
 			transform.localRotation = Quaternion.Euler(0f, angle, 0f);
 		}
 		return true;
 	}
 
-	public void Initialize (float scale, float speed, float pathOffset) 
-	{
+	public void Initialize (float scale, float speed, float pathOffset) {
 		Scale = scale;
 		model.localScale = new Vector3(scale, scale, scale);
 		this.speed = speed;
 		this.pathOffset = pathOffset;
-		Health = 80f * scale;
+		Health = 100f * scale;
 	}
 
-	public void SpawnOn (GameTile tile) 
-	{
+	public void SpawnOn (GameTile tile) {
 		tileFrom = tile;
 		tileTo = tile.NextTileOnPath;
 		progress = 0f;
 		PrepareIntro();
 	}
 
-	void PrepareNextState () 
-	{
+	void PrepareNextState () {
 		tileFrom = tileTo;
 		tileTo = tileTo.NextTileOnPath;
 		positionFrom = positionTo;
-		if (tileTo == null) 
-		{
+		if (tileTo == null) {
 			PrepareOutro();
 			return;
 		}
@@ -100,8 +89,7 @@ public class Enemy : MonoBehaviour
 		directionChange = direction.GetDirectionChangeTo(tileFrom.PathDirection);
 		direction = tileFrom.PathDirection;
 		directionAngleFrom = directionAngleTo;
-		switch (directionChange) 
-		{
+		switch (directionChange) {
 			case DirectionChange.None: PrepareForward(); break;
 			case DirectionChange.TurnRight: PrepareTurnRight(); break;
 			case DirectionChange.TurnLeft: PrepareTurnLeft(); break;
@@ -109,40 +97,36 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	void PrepareForward () 
-	{
+	void PrepareForward () {
 		transform.localRotation = direction.GetRotation();
 		directionAngleTo = direction.GetAngle();
 		model.localPosition = new Vector3(pathOffset, 0f);
 		progressFactor = speed;
 	}
 
-	void PrepareTurnRight () 
-	{
+	void PrepareTurnRight () {
 		directionAngleTo = directionAngleFrom + 90f;
 		model.localPosition = new Vector3(pathOffset - 0.5f, 0f);
 		transform.localPosition = positionFrom + direction.GetHalfVector();
 		progressFactor = speed / (Mathf.PI * 0.5f * (0.5f - pathOffset));
 	}
 
-	void PrepareTurnLeft () 
-	{
+	void PrepareTurnLeft () {
 		directionAngleTo = directionAngleFrom - 90f;
 		model.localPosition = new Vector3(pathOffset + 0.5f, 0f);
 		transform.localPosition = positionFrom + direction.GetHalfVector();
 		progressFactor = speed / (Mathf.PI * 0.5f * (0.5f + pathOffset));
 	}
 
-	void PrepareTurnAround () 
-	{
+	void PrepareTurnAround () {
 		directionAngleTo = directionAngleFrom + (pathOffset < 0f ? 180f : -180f);
 		model.localPosition = new Vector3(pathOffset, 0f);
 		transform.localPosition = positionFrom;
-		progressFactor = speed / (Mathf.PI * Mathf.Max(Mathf.Abs(pathOffset), 0.2f));
+		progressFactor =
+			speed / (Mathf.PI * Mathf.Max(Mathf.Abs(pathOffset), 0.2f));
 	}
 
-	void PrepareIntro () 
-	{
+	void PrepareIntro () {
 		positionFrom = tileFrom.transform.localPosition;
 		positionTo = tileFrom.ExitPoint;
 		direction = tileFrom.PathDirection;
@@ -153,8 +137,7 @@ public class Enemy : MonoBehaviour
 		progressFactor = 2f * speed;
 	}
 
-	void PrepareOutro () 
-	{
+	void PrepareOutro () {
 		positionTo = tileFrom.transform.localPosition;
 		directionChange = DirectionChange.None;
 		directionAngleTo = direction.GetAngle();

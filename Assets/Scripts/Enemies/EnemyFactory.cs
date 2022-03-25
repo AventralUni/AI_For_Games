@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu]
-public class EnemyFactory : GameObjectFactory 
-{
+public class EnemyFactory : GameObjectFactory {
 
 	[SerializeField]
 	Enemy prefab = default;
@@ -16,8 +15,7 @@ public class EnemyFactory : GameObjectFactory
 	[SerializeField, FloatRangeSlider(-0.4f, 0.4f)]
 	FloatRange pathOffset = new FloatRange(0f);
 
-	public Enemy Get () 
-	{
+	public Enemy Get () {
 		Enemy instance = CreateGameObjectInstance(prefab);
 		instance.OriginFactory = this;
 		instance.Initialize(
@@ -28,8 +26,7 @@ public class EnemyFactory : GameObjectFactory
 		return instance;
 	}
 
-	public void Reclaim (Enemy enemy) 
-	{
+	public void Reclaim (Enemy enemy) {
 		Debug.Assert(enemy.OriginFactory == this, "Wrong factory reclaimed!");
 		Destroy(enemy.gameObject);
 	}

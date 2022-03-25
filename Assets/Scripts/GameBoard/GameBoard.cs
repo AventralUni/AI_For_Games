@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class GameBoard : MonoBehaviour 
-{
+public class GameBoard : MonoBehaviour {
+
 	[SerializeField]
 	Transform ground = default;
 
@@ -26,42 +26,32 @@ public class GameBoard : MonoBehaviour
 
 	bool showGrid, showPaths;
 
-	public bool ShowGrid 
-	{
+	public bool ShowGrid {
 		get => showGrid;
-		set 
-		{
+		set {
 			showGrid = value;
 			Material m = ground.GetComponent<MeshRenderer>().material;
-			if (showGrid) 
-			{
+			if (showGrid) {
 				m.mainTexture = gridTexture;
 				m.SetTextureScale("_MainTex", size);
 			}
-			else 
-			{
+			else {
 				m.mainTexture = null;
 			}
 		}
 	}
 
-	public bool ShowPaths 
-	{
+	public bool ShowPaths {
 		get => showPaths;
-		set 
-		{
+		set {
 			showPaths = value;
-			if (showPaths) 
-			{
-				foreach (GameTile tile in tiles) 
-				{
+			if (showPaths) {
+				foreach (GameTile tile in tiles) {
 					tile.ShowPath();
 				}
 			}
-			else 
-			{
-				foreach (GameTile tile in tiles) 
-				{
+			else {
+				foreach (GameTile tile in tiles) {
 					tile.HidePath();
 				}
 			}
@@ -70,8 +60,9 @@ public class GameBoard : MonoBehaviour
 
 	public int SpawnPointCount => spawnPoints.Count;
 
-	public void Initialize (Vector2Int size, GameTileContentFactory contentFactory) 
-	{
+	public void Initialize (
+		Vector2Int size, GameTileContentFactory contentFactory
+	) {
 		this.size = size;
 		this.contentFactory = contentFactory;
 		ground.localScale = new Vector3(size.x, size.y, 1f);
@@ -80,28 +71,23 @@ public class GameBoard : MonoBehaviour
 			(size.x - 1) * 0.5f, (size.y - 1) * 0.5f
 		);
 		tiles = new GameTile[size.x * size.y];
-		for (int i = 0, y = 0; y < size.y; y++) 
-		{
-			for (int x = 0; x < size.x; x++, i++) 
-			{
+		for (int i = 0, y = 0; y < size.y; y++) {
+			for (int x = 0; x < size.x; x++, i++) {
 				GameTile tile = tiles[i] = Instantiate(tilePrefab);
 				tile.transform.SetParent(transform, false);
 				tile.transform.localPosition = new Vector3(
 					x - offset.x, 0f, y - offset.y
 				);
 
-				if (x > 0) 
-				{
+				if (x > 0) {
 					GameTile.MakeEastWestNeighbors(tile, tiles[i - 1]);
 				}
-				if (y > 0) 
-				{
+				if (y > 0) {
 					GameTile.MakeNorthSouthNeighbors(tile, tiles[i - size.x]);
 				}
 
 				tile.IsAlternative = (x & 1) == 0;
-				if ((y & 1) == 0) 
-				{
+				if ((y & 1) == 0) {
 					tile.IsAlternative = !tile.IsAlternative;
 				}
 
@@ -113,148 +99,121 @@ public class GameBoard : MonoBehaviour
 		ToggleSpawnPoint(tiles[0]);
 	}
 
-	public void GameUpdate () 
-	{
-		for (int i = 0; i < updatingContent.Count; i++) 
-		{
+	public void GameUpdate () {
+		for (int i = 0; i < updatingContent.Count; i++) {
 			updatingContent[i].GameUpdate();
 		}
 	}
 
-	public void ToggleDestination (GameTile tile) 
-	{
-		if (tile.Content.Type == GameTileContentType.Destination) 
-		{
+	public void ToggleDestination (GameTile tile) {
+		if (tile.Content.Type == GameTileContentType.Destination) {
 			tile.Content = contentFactory.Get(GameTileContentType.Empty);
-			if (!FindPaths()) 
-			{
+			if (!FindPaths()) {
 				tile.Content =
 					contentFactory.Get(GameTileContentType.Destination);
 				FindPaths();
 			}
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty) 
-		{
+		else if (tile.Content.Type == GameTileContentType.Empty) {
 			tile.Content = contentFactory.Get(GameTileContentType.Destination);
 			FindPaths();
 		}
 	}
 
-	public void ToggleWall (GameTile tile) 
-	{
-		if (tile.Content.Type == GameTileContentType.Wall) 
-		{
+	public void ToggleWall (GameTile tile) {
+		if (tile.Content.Type == GameTileContentType.Wall) {
 			tile.Content = contentFactory.Get(GameTileContentType.Empty);
 			FindPaths();
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty) 
-		{
+		else if (tile.Content.Type == GameTileContentType.Empty) {
 			tile.Content = contentFactory.Get(GameTileContentType.Wall);
-			if (!FindPaths()) 
-			{
+			if (!FindPaths()) {
 				tile.Content = contentFactory.Get(GameTileContentType.Empty);
 				FindPaths();
 			}
 		}
 	}
 
-	public void ToggleSpawnPoint (GameTile tile) 
-	{
-		if (tile.Content.Type == GameTileContentType.SpawnPoint) 
-		{
-			if (spawnPoints.Count > 1) 
-			{
+	public void ToggleSpawnPoint (GameTile tile) {
+		if (tile.Content.Type == GameTileContentType.SpawnPoint) {
+			if (spawnPoints.Count > 1) {
 				spawnPoints.Remove(tile);
 				tile.Content = contentFactory.Get(GameTileContentType.Empty);
 			}
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty) 
-		{
+		else if (tile.Content.Type == GameTileContentType.Empty) {
 			tile.Content = contentFactory.Get(GameTileContentType.SpawnPoint);
 			spawnPoints.Add(tile);
 		}
 	}
 
-	public void ToggleTower (GameTile tile) 
-	{
-		if (tile.Content.Type == GameTileContentType.Tower) 
-		{
+	public void ToggleTower (GameTile tile, TowerType towerType) {
+		if (tile.Content.Type == GameTileContentType.Tower) {
 			updatingContent.Remove(tile.Content);
-			tile.Content = contentFactory.Get(GameTileContentType.Empty);
-			FindPaths();
-		}
-		else if (tile.Content.Type == GameTileContentType.Empty) 
-		{
-			tile.Content = contentFactory.Get(GameTileContentType.Tower);
-			if (FindPaths()) 
-			{
+			if (((Tower)tile.Content).TowerType == towerType) {
+				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+				FindPaths();
+			}
+			else {
+				tile.Content = contentFactory.Get(towerType);
 				updatingContent.Add(tile.Content);
 			}
-			else 
-			{
+		}
+		else if (tile.Content.Type == GameTileContentType.Empty) {
+			tile.Content = contentFactory.Get(towerType);
+			if (FindPaths()) {
+				updatingContent.Add(tile.Content);
+			}
+			else {
 				tile.Content = contentFactory.Get(GameTileContentType.Empty);
 				FindPaths();
 			}
 		}
-		else if (tile.Content.Type == GameTileContentType.Wall)
-		{
-			tile.Content = contentFactory.Get(GameTileContentType.Tower);
+		else if (tile.Content.Type == GameTileContentType.Wall) {
+			tile.Content = contentFactory.Get(towerType);
 			updatingContent.Add(tile.Content);
 		}
 	}
 
-	public GameTile GetSpawnPoint (int index) 
-	{
+	public GameTile GetSpawnPoint (int index) {
 		return spawnPoints[index];
 	}
 
-	public GameTile GetTile (Ray ray) 
-	{
-		if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1)) 
-		{
+	public GameTile GetTile (Ray ray) {
+		if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1)) {
 			int x = (int)(hit.point.x + size.x * 0.5f);
 			int y = (int)(hit.point.z + size.y * 0.5f);
-			if (x >= 0 && x < size.x && y >= 0 && y < size.y) 
-			{
+			if (x >= 0 && x < size.x && y >= 0 && y < size.y) {
 				return tiles[x + y * size.x];
 			}
 		}
 		return null;
 	}
 
-	bool FindPaths () 
-	{
-		foreach (GameTile tile in tiles) 
-		{
-			if (tile.Content.Type == GameTileContentType.Destination) 
-			{
+	bool FindPaths () {
+		foreach (GameTile tile in tiles) {
+			if (tile.Content.Type == GameTileContentType.Destination) {
 				tile.BecomeDestination();
 				searchFrontier.Enqueue(tile);
 			}
-			else 
-			{
+			else {
 				tile.ClearPath();
 			}
 		}
-		if (searchFrontier.Count == 0) 
-		{
+		if (searchFrontier.Count == 0) {
 			return false;
 		}
 
-		while (searchFrontier.Count > 0) 
-		{
+		while (searchFrontier.Count > 0) {
 			GameTile tile = searchFrontier.Dequeue();
-			if (tile != null) 
-			{
-				if (tile.IsAlternative) 
-				{
+			if (tile != null) {
+				if (tile.IsAlternative) {
 					searchFrontier.Enqueue(tile.GrowPathNorth());
 					searchFrontier.Enqueue(tile.GrowPathSouth());
 					searchFrontier.Enqueue(tile.GrowPathEast());
 					searchFrontier.Enqueue(tile.GrowPathWest());
 				}
-				else 
-				{
+				else {
 					searchFrontier.Enqueue(tile.GrowPathWest());
 					searchFrontier.Enqueue(tile.GrowPathEast());
 					searchFrontier.Enqueue(tile.GrowPathSouth());
@@ -263,18 +222,14 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 
-		foreach (GameTile tile in tiles) 
-		{
-			if (!tile.HasPath) 
-			{
+		foreach (GameTile tile in tiles) {
+			if (!tile.HasPath) {
 				return false;
 			}
 		}
 
-		if (showPaths) 
-		{
-			foreach (GameTile tile in tiles) 
-			{
+		if (showPaths) {
+			foreach (GameTile tile in tiles) {
 				tile.ShowPath();
 			}
 		}

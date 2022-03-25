@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public struct FloatRange 
-{
+public struct FloatRange {
+
 	[SerializeField]
 	float min, max;
 
@@ -10,21 +10,17 @@ public struct FloatRange
 
 	public float Max => max;
 
-	public float RandomValueInRange 
-	{
-		get 
-		{
+	public float RandomValueInRange {
+		get {
 			return Random.Range(min, max);
 		}
 	}
 
-	public FloatRange (float value) 
-	{
+	public FloatRange (float value) {
 		min = max = value;
 	}
 
-	public FloatRange (float min, float max) 
-	{
+	public FloatRange (float min, float max) {
 		this.min = min;
 		this.max = max < min ? min : max;
 	}
