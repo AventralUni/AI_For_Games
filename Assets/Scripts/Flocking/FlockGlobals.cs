@@ -8,10 +8,11 @@ public class FlockGlobals : MonoBehaviour
     public float flockSpeed = 5f;
     public GameObject leader;
 
-    [Range(0f, 1f)] public float cohesiveForce = 1;
-    [Range(0f, 1f)] public float leaderForce = 1;
-    [Range(0f, 1f)] public float alignForce = 1;
-    [Range(0f, 1f)] public float separationForce = 1;
+    [Range(0f, 20f)] public float cohesiveForce = 4;
+    [Range(0f, 20f)] public float alignForce = 1;
+    [Range(0f, 20f)] public float separationForce = 1;
+    [Range(0f, 20f)] public float obstacle_separationForce = 1;
+    [Range(0f, 20f)] public float leaderForce = 4;
 
     void Start()
     {
