@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 16283713}
   - component: {fileID: 16283712}
   m_Layer: 5
-  m_Name: TutorialButton
+  m_Name: ControlsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -562,9 +562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Tutorial
-
-'
+  m_Text: Controls
 --- !u!222 &694066339
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -981,7 +979,7 @@ GameObject:
   - component: {fileID: 1464882070}
   - component: {fileID: 1464882069}
   m_Layer: 5
-  m_Name: TutorialText
+  m_Name: ControlsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Tutorial
+  m_Text: 'Controls
 
 '
 --- !u!222 &1464882070
@@ -1126,7 +1124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1630564611}
   m_Layer: 5
-  m_Name: TutorialMenu
+  m_Name: ControlsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,14 +1179,14 @@ RectTransform:
   m_GameObject: {fileID: 1844607283}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1630564611}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.43389893, y: 32}
+  m_AnchoredPosition: {x: -0.43389893, y: 30}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844607285
@@ -1213,18 +1211,28 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Use Left Mouse button \nto place a tower"
+  m_Text: 'L                      Laser Tower
+
+    M                     Mortar Tower
+
+    Left
+    Click          Place Tower
+
+    B                     Restart
+
+    Space             
+    Pause'
 --- !u!222 &1844607286
 CanvasRenderer:
   m_ObjectHideFlags: 0
