@@ -9,16 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7bc67184aabe42bc8225bf83c68dc84, type: 3}
-  m_Name: Enemy Factory
+  m_Script: {fileID: 11500000, guid: c73564b74e6d14e4ba2d00b8a49e93ab, type: 3}
+  m_Name: SML Scenario
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7012074777765284301, guid: 741f8bafe745a45c19c4f476701681b4, type: 3}
-  scale:
-    min: 1
-    max: 1
-  speed:
-    min: 1
-    max: 1
-  pathOffset:
-    min: 0
-    max: 0
+  cycles: 3
+  cycleSpeedUp: 0.5
+  waves:
+  - {fileID: 11400000, guid: a6ac2142f54694decb9a8d770fe93598, type: 2}
+  - {fileID: 11400000, guid: f7e01c7e0a1a148a38d52d560505efd4, type: 2}
