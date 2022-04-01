@@ -56,7 +56,8 @@ public class FlockAgent : MonoBehaviour
         Vector3 avg_heading_to_leader = Vector3.zero;
         if (g.leader)
         {
-            avg_heading_to_leader = (g.leader.transform.position - transform.position).normalized;
+            var zepoint = g.leader.transform.position - g.leader.transform.forward.normalized * 5;
+            avg_heading_to_leader = (zepoint - transform.position).normalized;
         }
 
         //align
