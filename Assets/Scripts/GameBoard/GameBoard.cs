@@ -63,6 +63,7 @@ public class GameBoard : MonoBehaviour {
 	public void Initialize (
 		Vector2Int size, GameTileContentFactory contentFactory
 	) {
+		Game.isPaused = false;
 		this.size = size;
 		this.contentFactory = contentFactory;
 		ground.localScale = new Vector3(size.x, size.y, 1f);
@@ -90,11 +91,17 @@ public class GameBoard : MonoBehaviour {
 				if ((y & 1) == 0) {
 					tile.IsAlternative = !tile.IsAlternative;
 				}
-
-				tile.Content = contentFactory.Get(GameTileContentType.Empty);
 			}
 		}
+		Clear();
+	}
 
+	public void Clear () {
+		foreach (GameTile tile in tiles) {
+			tile.Content = contentFactory.Get(GameTileContentType.Empty);
+		}
+		spawnPoints.Clear();
+		updatingContent.Clear();
 		ToggleDestination(tiles[tiles.Length / 2]);
 		ToggleSpawnPoint(tiles[0]);
 	}
