@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class FlockAgent : MonoBehaviour
 {
+    public static int count = 0;
+
     FlockGlobals g;
-    Rigidbody rb;
 
     public int flockID;
+    public GameObject leader;
+
     float agentSmoothTime = 0.5f;
     Vector3 currentVelocity;
+
+    public float Health = 10;
 
     public float rayLength = 1;
 
@@ -42,7 +47,7 @@ public class FlockAgent : MonoBehaviour
         for (int i = 0; i < obstacles.Length; i++)
         {
             var other = obstacles[i];
-            if (Vector3.Distance(transform.position, other.transform.position) > g.DISTANCE) continue;
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(other.transform.position.x, other.transform.position.z)) > g.DISTANCE) continue;
 
             found.Add(other);
         }
@@ -110,9 +115,9 @@ public class FlockAgent : MonoBehaviour
 
         Vector3 leader_sep = Vector3.zero;
         Vector3 avg_heading_to_leader = Vector3.zero;
-        if (g.leader)
+        if (leader)
         {
-            var zepoint = g.leader.transform.position /* - g.leader.transform.forward.normalized*/;
+            var zepoint = leader.transform.position /* - g.leader.transform.forward.normalized*/;
             var diff = zepoint - transform.position;
             scale = (zepoint - transform.position).magnitude / 1;
 
@@ -180,7 +185,7 @@ public class FlockAgent : MonoBehaviour
         var cohesion = avg_position.normalized;
         var obstacle_separation = avg_diff2.normalized;
 
-        Vector3 centor = g.leader.transform.position;
+        Vector3 centor = leader.transform.position;
         float rad = 1;
 
         Vector3 coffset = centor - transform.position;
@@ -198,11 +203,11 @@ public class FlockAgent : MonoBehaviour
 
         if (!tolead)
         {
-            netSteer += radiusin.normalized * 100;
         }
 
+        netSteer += radiusin.normalized * g.radIn;
+
         Move(netSteer.normalized * g.flockSpeed);
-        lastSteer = netSteer.normalized * g.flockSpeed;
     }
 
     RaycastHit hitleft;
@@ -215,9 +220,12 @@ public class FlockAgent : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        count++;
         g = GameObject.FindGameObjectWithTag("AIControl").GetComponent<FlockGlobals>();
         bounds = GetComponent<Collider>().bounds;
+
+        var sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.color = new Color(flockID / 3f, flockID / 3f, flockID / 3f);
 
         transform.Rotate(transform.up * Random.Range(0, 360));
         Time.timeScale = 1f;
@@ -226,10 +234,15 @@ public class FlockAgent : MonoBehaviour
     bool tolead;
     void Update()
     {
-        //RaycastHit hit;
-        tolead = Physics.Raycast(transform.position, (transform.position - g.leader.transform.position).normalized, (transform.position - g.leader.transform.position).magnitude, LayerMask.GetMask("Obstacles"));
+        if (Health <= 0 || !leader)
+        {
+            Destroy(transform.gameObject);
+        }
 
-        SteerFromObstacles();
+        //RaycastHit hit;
+        tolead = Physics.Raycast(transform.position, (transform.position - leader.transform.position).normalized, (transform.position - leader.transform.position).magnitude, LayerMask.GetMask("Obstacles"));
+
+        //SteerFromObstacles();
 
         if (!tolead)
         {
@@ -240,7 +253,7 @@ public class FlockAgent : MonoBehaviour
 
         UpdateAI();
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
     }
 
     void SteerFromObstacles()
@@ -368,7 +381,7 @@ public class FlockAgent : MonoBehaviour
         //Gizmos.DrawRay(p3, transform.forward * .4f);
         //Gizmos.DrawSphere(p2, .3f);
 
-        Gizmos.DrawLine(transform.position, g.leader.transform.position);
+        Gizmos.DrawLine(transform.position, leader.transform.position);
 
 
         Gizmos.color = Color.red;

@@ -132,8 +132,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -247,6 +252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -276,63 +286,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
-      propertyPath: flockID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: DISTANCE
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: rayLength
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: alignForce
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: flockSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: STEERINGFORCE
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: cohesiveForce
-      value: 0.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: separationForce
-      value: 0.85
-      objectReference: {fileID: 0}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 8871645526922063694, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: m_RootOrder
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063694, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.08780757
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063694, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.08780757
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063694, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.08780757
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063694, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -391,22 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
-      propertyPath: m_TagString
-      value: Agent
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063698, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063698, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 8871645526922063699, guid: 0092217a5da5c85409ef564652c2e6ca,
-        type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -418,6 +363,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -535,6 +485,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -564,8 +519,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -679,6 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -708,8 +673,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -820,6 +790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (354)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -953,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &183115994
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1026,6 +1001,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -1140,6 +1120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (319)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -1284,8 +1269,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -1399,6 +1389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -1428,8 +1423,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -1543,6 +1543,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -1572,8 +1577,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -1687,6 +1697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -1716,8 +1731,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -1831,6 +1851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -1908,8 +1933,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -2023,6 +2053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -2052,8 +2087,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -2167,6 +2207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -2196,8 +2241,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -2311,6 +2361,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -2338,6 +2393,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -2455,6 +2515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -2482,6 +2547,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -2599,6 +2669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -2628,8 +2703,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -2740,6 +2820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (357)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -2870,6 +2955,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
       value: 1
       objectReference: {fileID: 0}
@@ -2985,6 +3075,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -3014,8 +3109,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -3129,6 +3229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -3219,8 +3324,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -3334,6 +3444,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -3361,6 +3476,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -3478,6 +3598,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -3505,6 +3630,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -3619,6 +3749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (320)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -3778,8 +3913,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -3893,6 +4033,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -3922,8 +4067,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4037,6 +4187,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4066,8 +4221,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4181,6 +4341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4210,8 +4375,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4325,6 +4495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4354,8 +4529,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4469,6 +4649,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4498,8 +4683,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4613,6 +4803,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4642,8 +4837,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4757,6 +4957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4786,8 +4991,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -4901,6 +5111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -4930,8 +5145,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -5045,6 +5265,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -5072,6 +5297,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -5189,6 +5419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -5216,6 +5451,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -5330,6 +5570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (318)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -5470,7 +5715,7 @@ MonoBehaviour:
   tileContentFactory: {fileID: 11400000, guid: 50b576fe36976479e97d482d8067eae9, type: 2}
   enemyFactory: {fileID: 11400000, guid: 60e99cab2b2404abf8360652ce5b20bf, type: 2}
   warFactory: {fileID: 11400000, guid: b789edf438f4f4c4284ecee7f1d8598c, type: 2}
-  spawnSpeed: 0.1
+  spawnSpeed: 0.2
 --- !u!4 &2025098018
 Transform:
   m_ObjectHideFlags: 0
@@ -5492,6 +5737,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -5609,6 +5859,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -5636,6 +5891,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
       propertyPath: flockID
@@ -5753,6 +6013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -5782,8 +6047,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -5897,6 +6167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: m_TagString
       value: Agent
       objectReference: {fileID: 0}
@@ -5947,14 +6222,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DISTANCE: 0.18
-  OBSTACLEDISTANCE: 4
+  OBSTACLEDISTANCE: 3
   flockSpeed: 1.1
-  leader: {fileID: 183115993}
+  agentPrefab: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+    type: 3}
   cohesiveForce: 285
   alignForce: 800
   separationForce: 146
-  obstacle_separationForce: 3659
+  obstacle_separationForce: 4000
   leaderForce: 20
+  radIn: 175
 --- !u!4 &2104922058
 Transform:
   m_ObjectHideFlags: 0
@@ -5978,8 +6255,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 183115993}
+    - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
       propertyPath: flockID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1262352314032288232, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
@@ -6090,6 +6372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FLockAI (378)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
         type: 3}
