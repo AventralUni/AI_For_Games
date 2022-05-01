@@ -27,6 +27,12 @@ public class Game : MonoBehaviour {
 
 	int playerHealth;
 
+	[SerializeField]
+	public static bool isPaused = false;
+
+	public GameObject pauseMenuUI;
+	public GameObject playerHUDUI;
+
 	GameScenario.State activeScenario;
 
 	TowerType selectedTowerType;
@@ -72,6 +78,7 @@ public class Game : MonoBehaviour {
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
 		activeScenario = scenario.Begin();
+		isPaused = false;
 	}
 
 	void BeginNewGame () {
@@ -80,6 +87,7 @@ public class Game : MonoBehaviour {
 		nonEnemies.Clear();
 		board.Clear();
 		activeScenario = scenario.Begin();
+		isPaused = false;
 	}
 
 	void OnValidate () {
@@ -91,55 +99,84 @@ public class Game : MonoBehaviour {
 		}
 	}
 
+	public void ResumeUI()
+    {
+		pauseMenuUI.SetActive(false);
+		isPaused = false;
+		playerHUDUI.SetActive(true);
+		Time.timeScale = playSpeed;
+	}
+
+	public void PauseUI ()
+    {
+		pauseMenuUI.SetActive(true);
+		isPaused = true;
+		playerHUDUI.SetActive(false);
+	}
+
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			HandleTouch();
-		}
-		else if (Input.GetMouseButtonDown(1)) {
-			HandleAlternativeTouch();
-		}
 
-		if (Input.GetKeyDown(KeyCode.V)) {
-			board.ShowPaths = !board.ShowPaths;
-		}
-		if (Input.GetKeyDown(KeyCode.G)) {
-			board.ShowGrid = !board.ShowGrid;
-		}
+        if (!isPaused)
+        {
+			if (Input.GetMouseButtonDown(0)) {
+				HandleTouch();
+			}
+			else if (Input.GetMouseButtonDown(1)) {
+				HandleAlternativeTouch();
+			}
 
-		if (Input.GetKeyDown(KeyCode.L)) {
-			selectedTowerType = TowerType.Laser;
-		}
-		else if (Input.GetKeyDown(KeyCode.M)) {
-			selectedTowerType = TowerType.Mortar;
-		}
+			if (Input.GetKeyDown(KeyCode.V)) {
+				board.ShowPaths = !board.ShowPaths;
+			}
+			if (Input.GetKeyDown(KeyCode.G)) {
+				board.ShowGrid = !board.ShowGrid;
+			}
+
+			if (Input.GetKeyDown(KeyCode.L)) {
+				selectedTowerType = TowerType.Laser;
+			}
+			else if (Input.GetKeyDown(KeyCode.M)) {
+				selectedTowerType = TowerType.Mortar;
+			}
+			if (Input.GetKeyDown(KeyCode.B)) {
+				BeginNewGame();
+			}
+			if (playerHealth <= 0 && startingPlayerHealth > 0) {
+				Debug.Log("Defeat!");
+				BeginNewGame();
+			}
+
+			if (!activeScenario.Progress() && enemies.IsEmpty) {
+				Debug.Log("Victory!");
+				BeginNewGame();
+				activeScenario.Progress();
+			}
+
+			enemies.GameUpdate();
+			Physics.SyncTransforms();
+			board.GameUpdate();
+			nonEnemies.GameUpdate();
+        }
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Time.timeScale =
 				Time.timeScale > pausedTimeScale ? pausedTimeScale : playSpeed;
+
+			
+			if (!isPaused)
+            {
+				PauseUI();
+            }
+			
 		}
 		else if (Time.timeScale > pausedTimeScale) {
 			Time.timeScale = playSpeed;
+            if (isPaused)
+            {
+				ResumeUI();
+            }
 		}
-
-		if (Input.GetKeyDown(KeyCode.B)) {
-			BeginNewGame();
-		}
-
-		if (playerHealth <= 0 && startingPlayerHealth > 0) {
-			Debug.Log("Defeat!");
-			BeginNewGame();
-		}
-
-		if (!activeScenario.Progress() && enemies.IsEmpty) {
-			Debug.Log("Victory!");
-			BeginNewGame();
-			activeScenario.Progress();
-		}
-
-		enemies.GameUpdate();
-		Physics.SyncTransforms();
-		board.GameUpdate();
-		nonEnemies.GameUpdate();
+		
 	}
 
 	void HandleAlternativeTouch () {

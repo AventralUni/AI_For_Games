@@ -63,6 +63,7 @@ public class GameBoard : MonoBehaviour {
 	public void Initialize (
 		Vector2Int size, GameTileContentFactory contentFactory
 	) {
+		Game.isPaused = false;
 		this.size = size;
 		this.contentFactory = contentFactory;
 		ground.localScale = new Vector3(size.x, size.y, 1f);
