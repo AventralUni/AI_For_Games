@@ -7,8 +7,13 @@ public class FlockAgent : MonoBehaviour
     FlockGlobals g;
     Rigidbody rb;
 
-    Vector3 currentVelocity;
+    public int flockID;
     float agentSmoothTime = 0.5f;
+    Vector3 currentVelocity;
+
+    public float rayLength = 1;
+
+    [SerializeField] bool colliding = false;
 
     List<GameObject> getNearAgents()
     {
@@ -20,8 +25,7 @@ public class FlockAgent : MonoBehaviour
         {
             var other = agents[i];
 
-            if (other == gameObject) continue;
-
+            if (other == gameObject || other.GetComponent<FlockAgent>().flockID != flockID) continue;
             if (Vector3.Distance(transform.position, other.transform.position) > g.DISTANCE) continue;
 
             found.Add(other);
@@ -46,18 +50,85 @@ public class FlockAgent : MonoBehaviour
         return found;
     }
 
+    Vector3 lastSteer = Vector3.zero;
+    Vector3 lastdir = Vector3.zero;
+
     void UpdateAI()
     {
-        var neighbours = getNearAgents();
         var obstacles = getNearObstacles();
 
-        if (neighbours.Count <= 0) return;
+        //obstacle separation 
+        Vector3 avg_diff2 = Vector3.zero;
+        for (int i = 0; i < obstacles.Count; i++)
+        {
+            var diff = transform.position - obstacles[i].transform.position;
+            if (Mathf.Abs(diff.magnitude) > g.OBSTACLEDISTANCE * 1f)
+            {
+                continue;
+            }
 
+            avg_diff2 += diff / diff.sqrMagnitude;
+        }
+        avg_diff2 /= obstacles.Count;
+
+        ////fucky and make smooth
+        if (colliding)
+        {
+            var dirx = Mathf.Sign(transform.forward.x);
+            var diry = Mathf.Sign(transform.forward.z);
+
+            //Move(-lastSteer);
+            Move((transform.forward + avg_diff2.normalized) * g.flockSpeed);
+
+            //if (lastdir == Vector3.back || lastdir == Vector3.forward)
+            //{
+            //    if (dirx > 0)
+            //    {
+            //        Move((Vector3.right + avg_diff2.normalized) * g.flockSpeed);
+            //    }
+            //    else
+            //    {
+            //        Move((Vector3.left + avg_diff2.normalized) * g.flockSpeed);
+            //    }
+            //}
+            //else if (lastdir == Vector3.left || lastdir == Vector3.right)
+            //{
+            //    if (diry > 0)
+            //    {
+            //        Move((Vector3.forward + avg_diff2.normalized) * g.flockSpeed);
+            //    }
+            //    else
+            //    {
+            //        Move((Vector3.back + avg_diff2.normalized) * g.flockSpeed);
+            //    }
+            //}
+            return;
+        }
+
+        float scale = 1;
+        //need to turn to leader fast not just accelerate dependng on distance when visible
+
+        Vector3 leader_sep = Vector3.zero;
         Vector3 avg_heading_to_leader = Vector3.zero;
         if (g.leader)
         {
-            var zepoint = g.leader.transform.position - g.leader.transform.forward.normalized * 5;
-            avg_heading_to_leader = (zepoint - transform.position).normalized;
+            var zepoint = g.leader.transform.position /* - g.leader.transform.forward.normalized*/;
+            var diff = zepoint - transform.position;
+            scale = (zepoint - transform.position).magnitude / 1;
+
+            if (Mathf.Abs(diff.magnitude) < .3)
+            {
+                leader_sep += diff / diff.sqrMagnitude;
+            }
+
+            avg_heading_to_leader = diff.normalized;
+        }
+
+        var neighbours = getNearAgents();
+        if (neighbours.Count <= 0)
+        {
+            Move((avg_heading_to_leader * g.leaderForce + avg_diff2.normalized * g.obstacle_separationForce).normalized * g.flockSpeed);
+            return;
         }
 
         //align
@@ -66,10 +137,6 @@ public class FlockAgent : MonoBehaviour
         {
             var other = neighbours[i];
             var diff = transform.position - other.transform.position;
-            //if (Mathf.Abs(diff.magnitude) > g.DISTANCE * .5f)
-            //{
-            //    continue;
-            //}
 
             avg_heading += other.transform.forward;
         }
@@ -80,7 +147,7 @@ public class FlockAgent : MonoBehaviour
         for (int i = 0; i < neighbours.Count; i++)
         {
             var diff = transform.position - neighbours[i].transform.position;
-            if (Mathf.Abs(diff.magnitude) > g.DISTANCE * .5f)
+            if (Mathf.Abs(diff.magnitude) > g.DISTANCE * .75f)
             {
                 continue;
             }
@@ -88,20 +155,6 @@ public class FlockAgent : MonoBehaviour
             avg_diff1 += diff / diff.sqrMagnitude;
         }
         avg_diff1 /= neighbours.Count;
-
-        //obstacle separation 
-        Vector3 avg_diff2 = Vector3.zero;
-        for (int i = 0; i < obstacles.Count; i++)
-        {
-            var diff = transform.position - obstacles[i].transform.position;
-            if (Mathf.Abs(diff.magnitude) > g.DISTANCE * 1.5f)
-            {
-                continue;
-            }
-
-            avg_diff2 += diff / diff.sqrMagnitude;
-        }
-        avg_diff2 /= obstacles.Count;
 
         //cohesion
         Vector3 avg_position = Vector3.zero;
@@ -127,41 +180,277 @@ public class FlockAgent : MonoBehaviour
         var cohesion = avg_position.normalized;
         var obstacle_separation = avg_diff2.normalized;
 
+        Vector3 centor = g.leader.transform.position;
+        float rad = 1;
+
+        Vector3 coffset = centor - transform.position;
+        float t = coffset.magnitude / rad;
+        var radiusin = (t < .9) ? Vector3.zero : coffset * t * t;
+
         //print($"{gameObject.name} : algn {align} : fwd {transform.forward}");
 
         var netSteer =
             cohesion * g.cohesiveForce +
             align * g.alignForce +
-            separation * g.separationForce + 
+            separation * g.separationForce +
             avg_heading_to_leader * g.leaderForce +
             obstacle_separation * g.obstacle_separationForce;
 
+        if (!tolead)
+        {
+            netSteer += radiusin.normalized * 100;
+        }
+
         Move(netSteer.normalized * g.flockSpeed);
+        lastSteer = netSteer.normalized * g.flockSpeed;
     }
+
+    RaycastHit hitleft;
+    RaycastHit hitmid;
+    RaycastHit hitright;
+    RaycastHit hitraya;
+
+    [SerializeField] LayerMask lm;
+    Bounds bounds;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         g = GameObject.FindGameObjectWithTag("AIControl").GetComponent<FlockGlobals>();
-
-        //Time.timeScale = 0.25f;
+        bounds = GetComponent<Collider>().bounds;
 
         transform.Rotate(transform.up * Random.Range(0, 360));
-        //Time.timeScale = 0.1f;
+        Time.timeScale = 1f;
     }
 
+    bool tolead;
     void Update()
     {
+        //RaycastHit hit;
+        tolead = Physics.Raycast(transform.position, (transform.position - g.leader.transform.position).normalized, (transform.position - g.leader.transform.position).magnitude, LayerMask.GetMask("Obstacles"));
+
+        SteerFromObstacles();
+
+        if (!tolead)
+        {
+            //transform.forward = (transform.position - g.leader.transform.position).normalized;
+            //Move((transform.forward) * g.flockSpeed);
+            colliding = false;
+        }
+
         UpdateAI();
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    }
+
+    void SteerFromObstacles()
+    {
+        var p1 = new Vector3(transform.position.x - bounds.size.x / 2, transform.position.y, transform.position.z - bounds.size.z / 2);
+        var p2 = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        var p3 = new Vector3(transform.position.x + bounds.size.x / 2, transform.position.y, transform.position.z - bounds.size.z / 2);
+
+        Ray leftray = new Ray(p1, transform.forward);
+        Ray midray = new Ray(p2, transform.forward);
+        Ray rightray = new Ray(p3, transform.forward);
+
+        colliding = false;
+        if (Physics.Raycast(midray, out hitmid, rayLength, LayerMask.GetMask("Obstacles")))
+        {
+            if (hitmid.transform.CompareTag("Player"))
+            {
+                return;
+            }
+
+            colliding = true;
+            var normal = hitmid.normal;
+            var point = hitmid.point;
+            var dirx = Mathf.Sign(transform.forward.x);
+            var diry = Mathf.Sign(transform.forward.z);
+
+            lastdir = normal;
+
+            Ray raya1 = new Ray(hitmid.transform.position + normal, Vector3.Cross(normal, Vector3.up));
+            Ray raya2 = new Ray(hitmid.transform.position + normal, -Vector3.Cross(normal, Vector3.up));
+
+            if (Physics.Raycast(raya1, out hitraya, rayLength, LayerMask.GetMask("Obstacles")))
+            {
+                transform.forward = hitraya.normal;
+
+                return;
+            }
+            else if (Physics.Raycast(raya2, out hitraya, rayLength, LayerMask.GetMask("Obstacles")))
+            {
+                transform.forward = hitraya.normal;
+                return;
+            }
+
+            //fucky and make smooth
+            if (normal == Vector3.back)
+            {
+                if (dirx > 0)
+                {
+                    transform.forward = Vector3.right;
+                }
+                else
+                {
+                    transform.forward = Vector3.left;
+                }
+            }
+            else if (normal == Vector3.forward)
+            {
+                if (dirx > 0)
+                {
+                    transform.forward = Vector3.right;
+                }
+                else
+                {
+                    transform.forward = Vector3.left;
+                }
+            }
+            else if (normal == Vector3.left)
+            {
+                if (diry > 0)
+                {
+                    transform.forward = Vector3.forward;
+                }
+                else
+                {
+                    transform.forward = Vector3.back;
+                }
+            }
+            else if (normal == Vector3.right)
+            {
+                if (diry > 0)
+                {
+                    transform.forward = Vector3.forward;
+                }
+                else
+                {
+                    transform.forward = Vector3.back;
+                }
+            }
+
+            //Move(transform.forward * g.flockSpeed);
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
+
+        var bounds = GetComponent<Collider>().bounds;
+
+        //var p1 = new Vector3(e.min.x, e.center.y, e.min.z);
+        //print($"1 {p1}");
+        var p1 = new Vector3(transform.position.x - bounds.size.x / 2, transform.position.y, transform.position.z - bounds.size.z / 2);
+        var p2 = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        var p3 = new Vector3(transform.position.x + bounds.size.x / 2, transform.position.y, transform.position.z - bounds.size.z / 2);
+        //print($"2 {p2}");
+        //var p3 = new Vector3(e.max.x, e.center.y, e.min.z);
+        //print($"3 {p3}");
+
+        //Gizmos.DrawWireSphere(p1, .3f);
+        //Gizmos.DrawWireSphere(p2, .3f);
+        //Gizmos.DrawWireSphere(transform.position, g.DISTANCE);
+
+        //Gizmos.color = (hitleft) ? Color.green : Color.red;
+        //Gizmos.DrawRay(p1, transform.forward * 5f);
+
+        //Ray midray = new Ray(p2, transform.forward * 5);
+        Ray leftray = new Ray(p1, transform.forward);
+        Ray midray = new Ray(p2, transform.forward);
+        Ray rightray = new Ray(p3, transform.forward);
+
+        //Gizmos.color = Physics.Raycast(leftray, out hitmid, .4f, LayerMask.GetMask("Obstacles")) ? Color.green : Color.red;
+        //Gizmos.DrawRay(p1, transform.forward * .4f);
+
+        //Gizmos.color = Physics.Raycast(rightray, out hitmid, .4f, LayerMask.GetMask("Obstacles")) ? Color.green : Color.red;
+        //Gizmos.DrawRay(p3, transform.forward * .4f);
+        //Gizmos.DrawSphere(p2, .3f);
+
+        Gizmos.DrawLine(transform.position, g.leader.transform.position);
+
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * .75f);
+        if (Physics.Raycast(midray, out hitmid, rayLength, LayerMask.GetMask("Obstacles")))
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(p2, transform.forward * rayLength);
+            var normal = hitmid.normal;
+            var point = hitmid.point;
+
+            //Gizmos.DrawSphere(point + normal / 2, 3);
+
+            Ray raya = new Ray(point, Vector3.Cross(normal, Vector3.up));
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(hitmid.transform.position + normal, Vector3.Cross(normal, Vector3.up) * 1f);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(hitmid.transform.position + normal, -Vector3.Cross(normal, Vector3.up) * 1f);
+
+            /*
+            var dirx = Mathf.Sign(transform.forward.x);
+            var diry = Mathf.Sign(transform.forward.z);
+
+            if (normal == Vector3.back)
+            {
+                if (dirx > 0)
+                {
+                    transform.forward = Vector3.right;
+                }
+                else
+                {
+                    transform.forward = Vector3.left;
+                }
+            }
+            else if (normal == Vector3.forward)
+            {
+                if (dirx > 0)
+                {
+                    transform.forward = Vector3.right;
+                }
+                else
+                {
+                    transform.forward = Vector3.left;
+                }
+            }
+            else if (normal == Vector3.left)
+            {
+                //print(transform.forward);
+                if (diry > 0)
+                {
+                    transform.forward = Vector3.forward;
+                }
+                else
+                {
+                    transform.forward = Vector3.back;
+                }
+            }
+            else if (normal == Vector3.right)
+            {
+                if (diry > 0)
+                {
+                    transform.forward = Vector3.forward;
+                }
+                else
+                {
+                    transform.forward = Vector3.back;
+                }
+        }
+    }
+            */
+        }
+
+        //Gizmos.color = (hitright) ? Color.green : Color.red;
+        //Gizmos.DrawRay(p3, transform.forward * 5f);
+
+        //Gizmos.color = Color.blue;
+
+        //
+        //print($"1 {p1} " +
+        //    $"2 {p2} " +
+        //    $"3 {p3}");
+
     }
 
     void Move(Vector3 velocity)

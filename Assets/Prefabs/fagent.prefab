@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4030673163828916600}
   - component: {fileID: 6573415189257367136}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c3bd46786c2f7c5419fe73835952ed98, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4745098, g: 0.09803922, b: 0.48235294, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8871645526922063699}
   - component: {fileID: 8871645526922063698}
   - component: {fileID: 1262352314032288232}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: fagent
   m_TagString: Agent
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8871645526922063697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.38, y: -0.15, z: -9.99}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4030673163828916600}
@@ -126,10 +126,10 @@ BoxCollider:
   m_GameObject: {fileID: 8871645526922063697}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.6023853, y: 0, z: 1.5880423}
+  m_Center: {x: 0.00000011920929, y: 0, z: -0.0023903847}
 --- !u!54 &8871645526922063698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,3 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb1a10220c02f5458e679a5269eb67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flockID: 0
+  rayLength: 1
+  lm:
+    serializedVersion: 2
+    m_Bits: 64
