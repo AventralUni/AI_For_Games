@@ -14,7 +14,7 @@ public class StateManager : MonoBehaviour
 
     private void runStateMachine()
     {
-        //Takes the state, runs the logic and returns a state
+        //Takes the state, if it's not null runs the logic and returns a state
         State nextState = currentState?.runCurrentState();
 
         if (nextState != null)
