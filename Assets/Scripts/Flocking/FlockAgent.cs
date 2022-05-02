@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FlockAgent : MonoBehaviour
 {
-    public static int count = 0;
     FlockGlobals g;
 
     public int flockID;

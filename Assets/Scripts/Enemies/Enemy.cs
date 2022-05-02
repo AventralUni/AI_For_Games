@@ -10,6 +10,7 @@ public class Enemy : GameBehavior
 
     public FlockGlobals g;
     public List<GameObject> flock = new List<GameObject>();
+    bool hadFlock;
 
     GameTile tileFrom, tileTo;
     Vector3 positionFrom, positionTo;
@@ -51,14 +52,13 @@ public class Enemy : GameBehavior
 
     public void OnDestroy()
     {
-        if (flock.Count > 0)
+        if (hadFlock)
         {
+            g.flockCount -= 1;
             for (int i = 0; i < flock.Count; i++)
             {
                 Destroy(flock[i].gameObject);
             }
-
-            g.flockCount -= 1;
         }
     }
 
@@ -133,21 +133,11 @@ public class Enemy : GameBehavior
 
         g = GameObject.FindGameObjectWithTag("FlockControl").GetComponent<FlockGlobals>();
 
-        if (enemyType == EnemyType.Small)
-        {
-            return;
-        }
-
-        if (g.flockCount > 12)
-        {
-            return;
-        }
+        if (enemyType == EnemyType.Small) return;
+        if (g.flockCount > 12) return;
 
         var rand = Random.Range(0, 2);
-        if (rand != 1)
-        {
-            return;
-        }
+        if (rand != 1) return;
 
         for (int i = 0; i < 12; i++)
         {
@@ -159,7 +149,7 @@ public class Enemy : GameBehavior
             if (transform.GetComponentInChildren<MeshRenderer>().sharedMaterial)
                 col = transform.GetComponentInChildren<MeshRenderer>().sharedMaterial.color;
             else
-                col = Color.white;
+                col = Color.magenta;
 
             agent.GetComponentInChildren<SpriteRenderer>().color = col;
 
@@ -169,6 +159,7 @@ public class Enemy : GameBehavior
             flock.Add(agent);
         }
 
+        hadFlock = true;
         g.flockCount++;
     }
 
