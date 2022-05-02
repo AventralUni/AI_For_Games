@@ -7,7 +7,7 @@ public class EnemySpawnSequence {
 	EnemyFactory factory = default;
 
 	[SerializeField]
-	EnemyType type = EnemyType.Medium;
+	EnemyType type;
 
 	[SerializeField, Range(1, 100)]
 	int amount = 1;
@@ -39,6 +39,7 @@ public class EnemySpawnSequence {
 				if (count >= sequence.amount) {
 					return cooldown;
 				}
+
 				count += 1;
 				Game.SpawnEnemy(sequence.factory, sequence.type);
 			}

@@ -1,54 +1,66 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu]
-public class EnemyFactory : GameObjectFactory {
+public class EnemyFactory : GameObjectFactory
+{
 
-	[System.Serializable]
-	class EnemyConfig {
+    [System.Serializable]
+    class EnemyConfig
+    {
+        public Enemy prefab = default;
 
-		public Enemy prefab = default;
+        [FloatRangeSlider(0.5f, 2f)]
+        public FloatRange scale = new FloatRange(1f);
 
-		[FloatRangeSlider(0.5f, 2f)]
-		public FloatRange scale = new FloatRange(1f);
+        [FloatRangeSlider(0.2f, 5f)]
+        public FloatRange speed = new FloatRange(1f);
 
-		[FloatRangeSlider(0.2f, 5f)]
-		public FloatRange speed = new FloatRange(1f);
+        [FloatRangeSlider(-0.4f, 0.4f)]
+        public FloatRange pathOffset = new FloatRange(0f);
 
-		[FloatRangeSlider(-0.4f, 0.4f)]
-		public FloatRange pathOffset = new FloatRange(0f);
+        [FloatRangeSlider(10f, 1000f)]
+        public FloatRange health = new FloatRange(100f);
 
-		[FloatRangeSlider(10f, 1000f)]
-		public FloatRange health = new FloatRange(100f);
-	}
+        public EnemyType type = default;
+    }
 
-	[SerializeField]
-	EnemyConfig small = default, medium = default, large = default;
+    [SerializeField]
+    EnemyConfig small = default, medium = default, large = default;
+    EnemyConfig GetConfig(EnemyType type)
+    {
+        switch (type)
+        {
+            case EnemyType.Small: return small;
+            case EnemyType.Medium: return medium;
+            case EnemyType.Large: return large;
+        }
+        Debug.Assert(false, "Unsupported enemy type!");
+        return null;
+    }
 
-	EnemyConfig GetConfig (EnemyType type) {
-		switch (type) {
-			case EnemyType.Small: return small;
-			case EnemyType.Medium: return medium;
-			case EnemyType.Large: return large;
-		}
-		Debug.Assert(false, "Unsupported enemy type!");
-		return null;
-	}
+    public Enemy Get(EnemyType type)
+    {
+        small.type = EnemyType.Small;
+        medium.type = EnemyType.Medium;
+        large.type = EnemyType.Large;
 
-	public Enemy Get (EnemyType type = EnemyType.Medium) {
-		EnemyConfig config = GetConfig(type);
-		Enemy instance = CreateGameObjectInstance(config.prefab);
-		instance.OriginFactory = this;
-		instance.Initialize(
-			config.scale.RandomValueInRange,
-			config.speed.RandomValueInRange,
-			config.pathOffset.RandomValueInRange,
-			config.health.RandomValueInRange
-		);
-		return instance;
-	}
+        EnemyConfig config = GetConfig(type);
+        Enemy instance = CreateGameObjectInstance(config.prefab);
+        instance.OriginFactory = this;
+        instance.Initialize(
+            config.scale.RandomValueInRange,
+            config.speed.RandomValueInRange,
+            config.pathOffset.RandomValueInRange,
+            config.health.RandomValueInRange,
+            config.type
+        );
 
-	public void Reclaim (Enemy enemy) {
-		Debug.Assert(enemy.OriginFactory == this, "Wrong factory reclaimed!");
-		Destroy(enemy.gameObject);
-	}
+        return instance;
+    }
+
+    public void Reclaim(Enemy enemy)
+    {
+        Debug.Assert(enemy.OriginFactory == this, "Wrong factory reclaimed!");
+        Destroy(enemy.gameObject);
+    }
 }

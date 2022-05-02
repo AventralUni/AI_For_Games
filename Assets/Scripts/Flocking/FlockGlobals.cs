@@ -17,6 +17,7 @@ public class FlockGlobals : MonoBehaviour
     [Range(0f, 4000f)] public float leaderForce = 4;
     [Range(0f, 4000f)] public float radIn = 4;
 
+    public int flockCount = 1;
 
     void Start()
     {

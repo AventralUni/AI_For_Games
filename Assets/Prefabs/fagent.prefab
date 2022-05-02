@@ -243,8 +243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flockID: 1
   leader: {fileID: 0}
-  Health: 100
+  Health: 7
   rayLength: 0.4
+  driveSpeed: 1
   colliding: 0
   lm:
     serializedVersion: 2

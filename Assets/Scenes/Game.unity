@@ -2175,6 +2175,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408134004}
   m_CullTransparentMesh: 1
+--- !u!1 &1411648046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1411648048}
+  - component: {fileID: 1411648047}
+  m_Layer: 0
+  m_Name: Flocking Globals
+  m_TagString: FlockControl
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1411648047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411648046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f67dee8174eb054086f7560f9aa3e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DISTANCE: 0.18
+  OBSTACLEDISTANCE: 3
+  flockSpeed: 1.0008152
+  agentPrefab: {fileID: 8871645526922063697, guid: 0092217a5da5c85409ef564652c2e6ca,
+    type: 3}
+  cohesiveForce: 1638
+  alignForce: 2235
+  separationForce: 558
+  obstacle_separationForce: 4000
+  leaderForce: 49
+  radIn: 550
+  flockCount: 0
+--- !u!4 &1411648048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411648046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.982351, y: -8.133291, z: -11.89878}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1446499011
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,7 +3279,7 @@ MonoBehaviour:
   tileContentFactory: {fileID: 11400000, guid: 50b576fe36976479e97d482d8067eae9, type: 2}
   warFactory: {fileID: 11400000, guid: b789edf438f4f4c4284ecee7f1d8598c, type: 2}
   scenario: {fileID: 11400000, guid: 5ec7eb9aec85440d4905132b9265c37c, type: 2}
-  startingPlayerHealth: 10
+  startingPlayerHealth: 100
   playSpeed: 1
   pauseMenuUI: {fileID: 328488694}
   playerHUDUI: {fileID: 464350}
