@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class AttackState : State
 {
-    public ChaseState chaseState;
-    public bool isInAttackRange;
-
     public override State runCurrentState()
     {
-       
+        //throw new System.NotImplementedException();
 
         return this;
     }

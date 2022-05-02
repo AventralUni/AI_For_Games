@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : State
+public class ChaseState : State
 {
 
-    public ChaseState chaseState;
-    public bool canSeePlayer;
-
+    public AttackState attackState;
+    public bool isInAttackRange;
 
     public override State runCurrentState()
     {
-        
-
-        if (canSeePlayer)
+        //throw new System.NotImplementedException();
+        if (isInAttackRange)
         {
-            return chaseState;
+            return attackState;
         }
         else
         {
